@@ -9,7 +9,6 @@ void fit_qxtx_CsI()
 
     // Y values (Energy -> MeV)
     double E[n] = {65.98, 60.62, 55.8, 50.82};
-    // ★ 수정된 부분: Y축(MeV) 에러 (sigma) ★
     double sigma_E[n] = {0.1964, 1.323, 0.1876, 1.437};
 
     // X values (Channel -> adc)
@@ -47,7 +46,7 @@ void fit_qxtx_CsI()
         sigma_Q2T3, sigma_Q2T4, sigma_Q3T2, sigma_Q4T1
     };
 
-    // 색상은 그래프 구분을 위해 유지
+
     int colors[nGraph] = {
         kBlue+1, kRed+1, kGreen+2, kMagenta+1,
         kOrange+7, kCyan+2, kBlack, kViolet
@@ -65,7 +64,7 @@ void fit_qxtx_CsI()
         gr->SetName(Form("gr_%s", names[i]));
         gr->SetTitle("");
 
-        // 마커를 20번(꽉 찬 동그라미)으로 통일
+
         gr->SetMarkerStyle(20);
         gr->SetMarkerColor(colors[i]);
         gr->SetLineColor(colors[i]);
@@ -77,7 +76,7 @@ void fit_qxtx_CsI()
         gr->GetXaxis()->SetTitle("adc");
         gr->GetYaxis()->SetTitle("MeV");
 
-        // 현재 그래프 데이터의 최소/최대값 찾기
+        // 현재 그래프 데이터의 최소/최대
         double min_adc = TMath::MinElement(n, adc_vals[i]);
         double max_adc = TMath::MaxElement(n, adc_vals[i]);
         
@@ -88,7 +87,6 @@ void fit_qxtx_CsI()
         // 화면에 보여지는 X축 범위도 피팅 구간에 맞춰서 유동적으로 조절 (양쪽으로 5씩 여유)
         gr->GetXaxis()->SetLimits(fit_min - 5.0, fit_max + 5.0);
         //gr->GetXaxis()->SetLimits(0., 200.);
-        // Y축(에너지)은 에러바를 고려해 범위를 조금 더 넓혔습니다.
         gr->GetYaxis()->SetRangeUser(45.0, 70.0);
         //gr->GetYaxis()->SetRangeUser(0., 70.0);
 
