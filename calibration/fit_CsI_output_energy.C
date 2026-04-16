@@ -10,7 +10,7 @@
 #include "TString.h"
 #include <iostream>
 
-// 슬라이드의 output-energy function 정의 (x[0] = E)
+//output-energy function 정의 (x[0] = E)
 double output_energy_function(double *x, double *par) {
     double E = x[0];
     if (E <= 0) return 0.0; 
@@ -23,7 +23,7 @@ double output_energy_function(double *x, double *par) {
     double Z  = par[5]; // Atomic number
 
     double term1 = a2 * A * Z * Z;
-    if (term1 <= 0) return 0.0; // 방어 코드
+    if (term1 <= 0) return 0.0;
 
     double partA = E * (1.0 - (term1 / E) * log(1.0 + E / term1));
     double partB = a4 * term1 * log((E + term1) / (a3 + term1));
@@ -121,7 +121,6 @@ void fit_CsI_output_energy()
         gr->GetXaxis()->SetTitleOffset(1.0);
         gr->GetYaxis()->SetTitleOffset(1.15);
 
-        // 변경된 함수명 적용
         TF1* fFit = new TF1(Form("fFit_%s", names[i]), output_energy_function, fit_min, fit_max, 6);
         //TF1* fFit = new TF1(Form("fFit_%s", names[i]), output_energy_function, 0., 70., 6);
         fFit->SetParNames("a1", "a2", "a3", "a4", "A", "Z");
@@ -157,7 +156,7 @@ void fit_CsI_output_energy()
         leg->AddEntry(gr, Form("%s (Proton)", names[i]), "lp");
         leg->Draw();
 
-        // 텍스트 출력
+        
         TLatex* tex = new TLatex();
         tex->SetNDC();
         tex->SetTextSize(0.035); 
@@ -173,7 +172,7 @@ void fit_CsI_output_energy()
         c->Update();
         c->SaveAs(Form("fit_CsI_output_energy_%s.pdf", names[i]));
 
-        // 콘솔 창 출력
+
         std::cout << "=====================================" << std::endl;
         std::cout << "Channel: " << names[i] << std::endl;
         std::cout << "  a1 (Gain) = " << a1_val << std::endl;
