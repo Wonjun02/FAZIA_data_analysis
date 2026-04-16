@@ -5,13 +5,13 @@
 
 using namespace std;
 
-// 1. Si (sQ2max) 변환 함수: pol2
+//Si (sQ2max) 변환 함수: pol2
 double Calibrate_Si(double adc, double p0, double p1) {
     //return (p0 * adc * adc) + (p1 * adc);
     return (p0 * adc) + (p1);
 }
 
-// 2. CsI (sQ3max) 변환 함수: pol2
+// CsI (sQ3max) 변환 함수: pol2
 double Calibrate_CsI(double adc, double p0, double p1) {
     //return (p0 * adc * adc) + (p1 * adc);
     return (p0 * adc) + (p1);
@@ -21,7 +21,7 @@ void adc_to_MeV()
 {
     int Energy = 60; 
     
-    // 입력 파일 (test_cut.C의 출력물)
+
     TString inputName = Form("d_cut_histCorr_%dMeV.root", Energy);
     TFile* fIn = new TFile(inputName, "READ");
     if (!fIn || fIn->IsZombie()) {
@@ -44,7 +44,7 @@ void adc_to_MeV()
         }
     }
 
-    // 예시 데이터 입력부 (원준님의 피팅 결과값에 맞춰 수정)
+
     // Q1T2 (i=0, j=1)
     csi_p0[0][1] = 0.38559; csi_p1[0][1] = 0.0;
     si_p0[0][1] = 0.27091; si_p1[0][1] = 0.0;
@@ -61,7 +61,7 @@ void adc_to_MeV()
     csi_p0[2][1] = 0.46902; csi_p1[2][1] = 0.0;
     si_p0[2][1] = 0.28011; si_p1[2][1] = 0.0;
     
-    // ... (기타 텔레스코프 입력 생략) ...
+
     // =================================================================
 
     for(int i=0; i<4; i++) {
